@@ -5,9 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "Treats")
+@Table(name = "treats")
 @Getter
 @Setter
 public class Treat {
@@ -18,4 +20,10 @@ public class Treat {
     private LocalDateTime treat_time;
 
     private Long pay;
+
+    @OneToMany(mappedBy = "treat",cascade = CascadeType.ALL)
+    private List<PatientTreat> patientTreats = new ArrayList<>();
+
+    @OneToMany(mappedBy = "treat",cascade = CascadeType.ALL)
+    private List<DoctorTreat> doctorTreats = new ArrayList<>();
 }

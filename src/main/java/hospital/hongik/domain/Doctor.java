@@ -1,11 +1,12 @@
 package hospital.hongik.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.w3c.dom.stylesheets.LinkStyle;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -17,4 +18,14 @@ public class Doctor {
     private String name;
 
     private Long career;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
+    private List<DoctorReservation> doctorReservations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
+    private List<DoctorTreat> doctorTreats = new ArrayList<>();
 }

@@ -13,4 +13,12 @@ public class DoctorTreat {
     @GeneratedValue
     @Column(name = "doctor_treat_id")
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "treat_id")
+    private Treat treat;
 }

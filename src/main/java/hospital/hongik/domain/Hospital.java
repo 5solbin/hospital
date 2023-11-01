@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter @Setter
 public class Hospital {
@@ -15,4 +18,7 @@ public class Hospital {
 
     @Embedded
     private Address address;
+
+    @OneToMany(mappedBy = "hospital",cascade = CascadeType.ALL)
+    private List<Department> departments = new ArrayList<>();
 }

@@ -5,11 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "patient_treat")
+@Table(name = "patient_reservation")
 @Getter @Setter
-public class PatientTreat {
+public class PatientReservation {
     @Id @GeneratedValue
-    @Column(name = "patient_treat_id")
+    @Column(name = "patient_reservation_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -17,7 +17,6 @@ public class PatientTreat {
     private Patient patient;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "treat_id")
-    private Treat treat;
-
+    @JoinColumn(name = "reservation_id")
+    private Reservation reservation;
 }
