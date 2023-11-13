@@ -24,4 +24,15 @@ public class Department {
 
     @OneToMany(mappedBy = "department")
     private List<Doctor> doctors = new ArrayList<>();
+
+    //==연관관계 메서드==//
+    public void setHospital(Hospital hospital) {
+        this.hospital = hospital;
+        hospital.getDepartments().add(this);
+    }
+
+    public void addDoctor(Doctor doctor) {
+        doctors.add(doctor);
+        doctor.setDepartment(this);
+    }
 }

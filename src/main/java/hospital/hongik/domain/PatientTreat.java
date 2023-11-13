@@ -20,4 +20,14 @@ public class PatientTreat {
     @JoinColumn(name = "treat_id")
     private Treat treat;
 
+    //==연관관계 메서드==//
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+        patient.getPatientTreats().add(this);
+    }
+
+    public void setTreat(Treat treat) {
+        this.treat = treat;
+        treat.getPatientTreats().add(this);
+    }
 }

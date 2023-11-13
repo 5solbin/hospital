@@ -21,4 +21,15 @@ public class DoctorTreat {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "treat_id")
     private Treat treat;
+
+    //==연관관계 메서드==//
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+        doctor.getDoctorTreats().add(this);
+    }
+
+    public void setTreat(Treat treat) {
+        this.treat = treat;
+        treat.getDoctorTreats().add(this);
+    }
 }

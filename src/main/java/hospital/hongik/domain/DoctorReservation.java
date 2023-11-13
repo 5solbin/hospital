@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.print.Doc;
+
 @Entity
 @Table(name = "Doctor_reservation")
 @Getter @Setter
@@ -19,4 +21,15 @@ public class DoctorReservation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
+
+    //==연관관계 메서드==//
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+        doctor.getDoctorReservations().add(this);
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+        reservation.getDoctorReservations().add(this);
+    }
 }

@@ -19,4 +19,15 @@ public class PatientReservation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
+
+    //==연관관계 메서드==//
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+        patient.getPatientReservations().add(this);
+    }
+
+    public void setReservation(Reservation reservation){
+        this.reservation = reservation;
+        reservation.getPatientReservations().add(this);
+    }
 }
