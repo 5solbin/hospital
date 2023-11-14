@@ -17,11 +17,16 @@ public class Reservation {
     @Column(name = "reservation_id")
     private Long id;
 
-    private LocalDateTime reservation_time;
+    private LocalDateTime time;
+
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.YET;
+
+    private int pay = 0;
 
     @OneToMany(mappedBy = "reservation",cascade = CascadeType.ALL)
-    private List<PatientReservation> patientReservations = new ArrayList<>();
+    private List<Patient> patients = new ArrayList<>();
 
     @OneToMany(mappedBy = "reservation",cascade = CascadeType.ALL)
-    private List<DoctorReservation> doctorReservations = new ArrayList<>();
+    private List<Doctor> doctors = new ArrayList<>();
 }

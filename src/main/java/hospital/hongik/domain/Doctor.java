@@ -24,8 +24,5 @@ public class Doctor {
     private Department department;
 
     @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
-    private List<DoctorReservation> doctorReservations = new ArrayList<>();
-
-    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
-    private List<DoctorTreat> doctorTreats = new ArrayList<>();
+    private List<Reservation> Reservations = new ArrayList<>();
 }

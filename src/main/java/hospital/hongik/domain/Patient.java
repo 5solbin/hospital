@@ -18,13 +18,10 @@ public class Patient {
     private int age;
 
     @Enumerated(EnumType.STRING)
-    private Sex sex;
+    private Gender gender;
 
     private String name;
 
     @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL)
-    private List<PatientReservation> patientReservations = new ArrayList<>();
-
-    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL)
-    private List<PatientTreat> patientTreats = new ArrayList<>();
+    private List<Reservation> Reservations = new ArrayList<>();
 }
