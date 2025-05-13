@@ -2,7 +2,6 @@ package hongik.hospital.controller;
 
 import hongik.hospital.dto.ResponseDto;
 import hongik.hospital.service.PatientService;
-import hongik.hospital.service.PatientService.JoinReqDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static hongik.hospital.dto.patient.PatientReqDto.*;
+import static hongik.hospital.dto.patient.PatientResDto.*;
 
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -36,7 +38,7 @@ public class PatientController {
             return new ResponseEntity<>(new ResponseDto<>(-1,"유효성 검사 실패 ", errorMap), HttpStatus.BAD_REQUEST);
         }
 
-        PatientService.JoinResDto join = patientService.join(joinReqDto);
+        JoinResDto join = patientService.join(joinReqDto);
         return new ResponseEntity<>(new ResponseDto<>(1, "회원가입 성공",join), HttpStatus.CREATED);
     }
 
