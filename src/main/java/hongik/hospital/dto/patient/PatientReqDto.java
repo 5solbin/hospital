@@ -16,14 +16,21 @@ public class PatientReqDto {
         private Gender gender;
         private Long age;
 
-        public Patient toEntity(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        public Patient toEntity() {
             return Patient.builder()
                     .username(username)
-                    .password(bCryptPasswordEncoder.encode(password))
+                    .password(password)
                     .name(name)
                     .gender(gender)
                     .age(age)
                     .build();
         }
+    }
+
+    @Getter
+    @Setter
+    public static class LoginReqDto {
+        private String username;
+        private String password;
     }
 }

@@ -16,4 +16,15 @@ public class PatientResDto {
             this.name = patient.getName();
         }
     }
+
+    @Getter
+    @Setter
+    public static class LoginResDto{
+        private String name;
+
+        public LoginResDto(Patient patient) {
+            this.name = patient.getName();
+        }
+    }
+
 }

@@ -42,4 +42,22 @@ public class PatientController {
         return new ResponseEntity<>(new ResponseDto<>(1, "회원가입 성공",join), HttpStatus.CREATED);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginReqDto loginReqDto, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorMap = new HashMap<>();
+
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                errorMap.put(error.getField(), error.getDefaultMessage());
+            }
+            return new ResponseEntity<>(new ResponseDto<>(-1, "유효성 검사 실패", errorMap), HttpStatus.BAD_REQUEST);
+        }
+
+        LoginResDto loginResDto = patientService.login(loginReqDto);
+        return new ResponseEntity<>(new ResponseDto<>(1, "로그인 성공", loginResDto), HttpStatus.OK);
+
+    }
+
+
 }

@@ -20,11 +20,11 @@ public class SecurityConfig {
     // 로그 확인용
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        log.debug("디버그 : BCryptPasswordEncoder 등록됨");
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public BCryptPasswordEncoder passwordEncoder() {
+//        log.debug("디버그 : BCryptPasswordEncoder 등록됨");
+//        return new BCryptPasswordEncoder();
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
