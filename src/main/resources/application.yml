@@ -30,5 +30,5 @@ spring:
       enabled: always
 logging:
   level:
-    hospital : debug
+    hongik.hospital: debug
 

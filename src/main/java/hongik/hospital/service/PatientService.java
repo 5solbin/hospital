@@ -40,6 +40,7 @@ public class PatientService {
     }
 
 
+    @Getter @Setter
     public static class JoinReqDto {
         private String username;
         private String password;

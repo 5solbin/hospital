@@ -1,4 +1,4 @@
-package hongik.controller;
+package hongik.hospital.controller;
 
 import hongik.hospital.dto.ResponseDto;
 import hongik.hospital.service.PatientService;
