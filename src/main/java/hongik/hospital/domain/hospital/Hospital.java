@@ -26,13 +26,12 @@ public class Hospital {
     private List<Doctor> doctors = new ArrayList<>();
 
     @Builder
-    public Hospital(Long id, String name, String username, String password, Address address, List<Doctor> doctors) {
+    public Hospital(Long id, String name, String username, String password, Address address) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.password = password;
         this.address = address;
-        this.doctors = doctors;
     }
 
 

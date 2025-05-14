@@ -1,12 +1,13 @@
 package hongik.hospital.domain.patient;
 
-import hongik.hospital.domain.patient.Gender;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import hongik.hospital.domain.patientReservation.PatientReservation;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Entity
@@ -20,6 +21,8 @@ public class Patient {
     private String name;
     private Long age;
     private Gender gender;
+    @OneToMany
+    private final List<PatientReservation> patientReservationList = new ArrayList<>();
 
     @Builder
     public Patient(Long id, String username, String password, String name, Long age, Gender gender) {
@@ -29,5 +32,10 @@ public class Patient {
         this.name = name;
         this.age = age;
         this.gender = gender;
+    }
+
+    public void addPatientReservation(PatientReservation pr) {
+        patientReservationList.add(pr);
+        pr.assignPatient(this);
     }
 }

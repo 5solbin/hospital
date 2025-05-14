@@ -1,10 +1,13 @@
 package hongik.hospital.domain.doctor;
 
+import hongik.hospital.domain.doctorReservation.DoctorReservation;
 import hongik.hospital.domain.hospital.Hospital;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 // 별별 : 의사 병원 관계 추가
 @Entity
@@ -24,6 +27,9 @@ public class Doctor {
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
 
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<DoctorReservation> doctorReservations;
+
     @Builder
     public Doctor(Long id, String name, String username, String password, Long career, Department department) {
         this.id = id;
@@ -36,6 +42,11 @@ public class Doctor {
 
     public void assignHospital(Hospital hospital) {
         this.hospital = hospital;
+    }
+
+    public void addDoctorReservation(DoctorReservation dr) {
+        doctorReservations.add(dr);
+        dr.assignDoctor(this);
     }
 
 }
