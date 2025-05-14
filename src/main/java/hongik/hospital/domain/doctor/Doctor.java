@@ -1,8 +1,7 @@
 package hongik.hospital.domain.doctor;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import hongik.hospital.domain.hospital.Hospital;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +20,10 @@ public class Doctor {
     private Long career;
     private Department department;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hospital_id")
+    private Hospital hospital;
+
     @Builder
     public Doctor(Long id, String name, String username, String password, Long career, Department department) {
         this.id = id;
@@ -29,6 +32,10 @@ public class Doctor {
         this.password = password;
         this.career = career;
         this.department = department;
+    }
+
+    public void assignHospital(Hospital hospital) {
+        this.hospital = hospital;
     }
 
 }

@@ -13,6 +13,7 @@ import java.util.Optional;
 import static hongik.hospital.dto.doctor.DoctorReqDto.*;
 import static hongik.hospital.dto.doctor.DoctorResDto.*;
 
+// 별별 회원가입과 로그인 코드가 너무 겹친다. 이걸 하나로 통합하는 방법을 생각해보자
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
