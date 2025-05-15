@@ -10,6 +10,10 @@ import hongik.hospital.domain.patientReservation.PatientReservation;
 import hongik.hospital.domain.patientReservation.PatientReservationRepository;
 import hongik.hospital.domain.reservation.Reservation;
 import hongik.hospital.domain.reservation.ReservationRepository;
+import hongik.hospital.dto.reservation.ReserReqDto;
+import hongik.hospital.dto.reservation.ReserReqDto.ReservationReqDto;
+import hongik.hospital.dto.reservation.ReserResDto;
+import hongik.hospital.dto.reservation.ReserResDto.ReservationResDto;
 import hongik.hospital.handler.ex.CustomApiException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -61,40 +65,24 @@ public class ReservationService {
         // 예약 저장
         PatientReservation pr = new PatientReservation();
         DoctorReservation dr = new DoctorReservation();
-        LocalDateTime time = reqDto.getTime();
-        LocalDate date = LocalDate.of(time.getYear(), time.getMonth(), time.getDayOfMonth());
 
         patient.addPatientReservation(pr);
         doctor.addDoctorReservation(dr);
+
+        // 예약 엔티티에는 날짜기준이라서 변환해줌
+        LocalDateTime time = reqDto.getTime();
+        LocalDate date = LocalDate.of(time.getYear(), time.getMonth(), time.getDayOfMonth());
+
 
         Reservation reservation = reservationRepository.findByDate(date)
                 .orElseGet(() -> reservationRepository.save(Reservation.builder().date(date).build()));
 
         reservation.addDoctorReservation(dr);
         reservation.addPatientReservation(pr);
+
         // Dto 반환
         return new ReservationResDto(patient.getName(), doctor.getName(), time);
 
-    }
-
-    @Getter @Setter
-    public static class ReservationReqDto {
-        private Long patientId;
-        private Long doctorId;
-        private LocalDateTime time;
-    }
-
-    @Getter @Setter
-    public static class ReservationResDto {
-        private String patientName;
-        private String doctorName;
-        private LocalDateTime time;
-
-        public ReservationResDto(String patientName, String doctorName, LocalDateTime time) {
-            this.patientName = patientName;
-            this.doctorName = doctorName;
-            this.time = time;
-        }
     }
 
 }
