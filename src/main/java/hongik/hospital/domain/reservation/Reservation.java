@@ -6,16 +6,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @Getter
+// 날짜별로 구분
 public class Reservation {
 
     @Id @GeneratedValue
@@ -27,8 +29,13 @@ public class Reservation {
     @OneToMany(mappedBy = "reservation")
     private List<PatientReservation> patientReservations = new ArrayList<>();
 
-    private LocalDateTime reservationTime;
-    private Long pay;
+    private LocalDate date;
+    private Long pay = 10000L;
+
+    @Builder
+    public Reservation(LocalDate date) {
+        this.date = date;
+    }
 
     public void addPatientReservation(PatientReservation pr) {
         patientReservations.add(pr);

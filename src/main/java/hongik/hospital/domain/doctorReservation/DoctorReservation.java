@@ -3,12 +3,15 @@ package hongik.hospital.domain.doctorReservation;
 import hongik.hospital.domain.doctor.Doctor;
 import hongik.hospital.domain.reservation.Reservation;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class DoctorReservation {
 
     @Id
@@ -23,6 +26,8 @@ public class DoctorReservation {
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
+    private LocalDateTime time;
+
     public void assignReservation(Reservation reservation) {
         this.reservation = reservation;
     }
@@ -30,4 +35,14 @@ public class DoctorReservation {
     public void assignDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
+
+    @Builder
+    public DoctorReservation(Long id, Doctor doctor, Reservation reservation, LocalDateTime time) {
+        this.id = id;
+        this.doctor = doctor;
+        this.reservation = reservation;
+        this.time = time;
+    }
+
+
 }

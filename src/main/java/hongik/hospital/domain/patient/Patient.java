@@ -21,7 +21,7 @@ public class Patient {
     private String name;
     private Long age;
     private Gender gender;
-    @OneToMany
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private final List<PatientReservation> patientReservationList = new ArrayList<>();
 
     @Builder

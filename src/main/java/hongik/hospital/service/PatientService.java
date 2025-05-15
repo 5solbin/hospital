@@ -21,7 +21,7 @@ public class PatientService {
 //    private final BCryptPasswordEncoder passwordEncoder;
 
 
-    // 회원 가입 추후에 JWT 때 비밀번호 인코딩 진행
+    // 별별 회원 가입 추후에 JWT 때 비밀번호 인코딩 진행
     @Transactional
     public JoinResDto join(JoinReqDto joinReqDto) {
         // 1. 동일 username 존재 검사
@@ -51,5 +51,8 @@ public class PatientService {
         // 로그인 성공 , Dto 반환
         return new LoginResDto(loginPatient);
     }
+
+
+
 
 }
