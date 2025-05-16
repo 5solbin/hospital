@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface PatientReservationRepository extends JpaRepository<PatientReservation, Long> {
 
-    Optional<PatientReservation> findByPatientIdAndReservation_ReservationTime(Long patientId, LocalDateTime time);
+    Optional<PatientReservation> findByPatientIdAndTime(Long patientId, LocalDateTime time);
 }

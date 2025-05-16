@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // 별별 : 의사 병원 관계 추가
@@ -16,6 +17,7 @@ import java.util.List;
 public class Doctor {
 
     @Id @GeneratedValue
+    @Column(name = "doctor_id")
     private Long id;
     private String name;
     private String username;
@@ -28,7 +30,7 @@ public class Doctor {
     private Hospital hospital;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
-    private List<DoctorReservation> doctorReservations;
+    private final List<DoctorReservation> doctorReservations = new ArrayList<>();
 
     @Builder
     public Doctor(Long id, String name, String username, String password, Long career, Department department) {

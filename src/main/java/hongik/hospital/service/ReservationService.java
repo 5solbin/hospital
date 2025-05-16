@@ -10,14 +10,10 @@ import hongik.hospital.domain.patientReservation.PatientReservation;
 import hongik.hospital.domain.patientReservation.PatientReservationRepository;
 import hongik.hospital.domain.reservation.Reservation;
 import hongik.hospital.domain.reservation.ReservationRepository;
-import hongik.hospital.dto.reservation.ReserReqDto;
 import hongik.hospital.dto.reservation.ReserReqDto.ReservationReqDto;
-import hongik.hospital.dto.reservation.ReserResDto;
 import hongik.hospital.dto.reservation.ReserResDto.ReservationResDto;
 import hongik.hospital.handler.ex.CustomApiException;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,7 +43,7 @@ public class ReservationService {
 
         // 환자 측에서 겹치는 날짜 있는지 확인
         Optional<PatientReservation> prOP = patientReservationRepository
-                .findByPatientIdAndReservation_ReservationTime(reqDto.getPatientId(), reqDto.getTime());
+                .findByPatientIdAndTime(reqDto.getPatientId(), reqDto.getTime());
 
         if (prOP.isPresent()) {
             throw new CustomApiException("환자의 예약이 존재합니다");
@@ -55,7 +51,7 @@ public class ReservationService {
 
         // 의사 측에서 겹치는 날짜 있는지 확인
         Optional<DoctorReservation> drOP = doctorReservationRepository
-                .findByDoctorIdAndReservation_ReservationTime(reqDto.getDoctorId(), reqDto.getTime());
+                .findByDoctorIdAndTime(reqDto.getDoctorId(), reqDto.getTime());
 
         if (drOP.isPresent()) {
             throw new CustomApiException("의사의 예약이 존재합니다");

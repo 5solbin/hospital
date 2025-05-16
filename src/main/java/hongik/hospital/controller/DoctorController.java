@@ -33,6 +33,7 @@ public class DoctorController {
     @PostMapping("/join")
     public ResponseEntity<?> join (@RequestBody @Valid JoinReqDto joinReqDto, BindingResult bindingResult) {
 
+        // 유효성 검사 전용 추후에 유효성 관련 기능 추가하면 작동할 예정, @Valid 어노테이션 추가
         if (bindingResult.hasErrors()) {
             Map<String, String> errorMap = new HashMap<>();
 

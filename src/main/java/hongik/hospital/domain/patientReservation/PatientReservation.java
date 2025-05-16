@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class PatientReservation {
 
     @Id @GeneratedValue
+    @Column(name = "patient_reservation_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

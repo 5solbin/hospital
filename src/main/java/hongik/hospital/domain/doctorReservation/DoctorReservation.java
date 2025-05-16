@@ -16,6 +16,7 @@ public class DoctorReservation {
 
     @Id
     @GeneratedValue
+    @Column(name = "doctor_reservation_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

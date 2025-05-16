@@ -15,6 +15,7 @@ import java.util.List;
 public class Hospital {
 
     @Id @GeneratedValue
+    @Column(name = "hospital_id")
     private Long id;
     private String name;
     private String username;
