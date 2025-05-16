@@ -1,5 +1,6 @@
 package hongik.hospital.domain.reservation;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import hongik.hospital.domain.doctorReservation.DoctorReservation;
 import hongik.hospital.domain.patientReservation.PatientReservation;
 import jakarta.persistence.*;
@@ -28,8 +29,12 @@ public class Reservation {
     @OneToMany(mappedBy = "reservation")
     private final List<PatientReservation> patientReservations = new ArrayList<>();
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "yyyyMMdd",
+            timezone = "Asia/Seoul")
     private LocalDate date;
-    private Long pay = 10000L;
+
+    private final Long pay = 10000L;
 
     @Builder
     public Reservation(LocalDate date) {

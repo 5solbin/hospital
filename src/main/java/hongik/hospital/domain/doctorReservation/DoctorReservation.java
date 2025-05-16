@@ -1,5 +1,6 @@
 package hongik.hospital.domain.doctorReservation;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import hongik.hospital.domain.doctor.Doctor;
 import hongik.hospital.domain.reservation.Reservation;
 import jakarta.persistence.*;
@@ -27,6 +28,9 @@ public class DoctorReservation {
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "yyyyMMddHHmmss",
+            timezone = "Asia/Seoul")
     private LocalDateTime time;
 
     public void assignReservation(Reservation reservation) {

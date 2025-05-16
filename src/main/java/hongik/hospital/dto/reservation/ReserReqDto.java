@@ -1,5 +1,6 @@
 package hongik.hospital.dto.reservation;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,9 @@ public class ReserReqDto {
     public static class ReservationReqDto {
         private Long patientId;
         private Long doctorId;
+        @JsonFormat(shape = JsonFormat.Shape.STRING,
+                pattern = "yyyyMMddHHmmss",
+                timezone = "Asia/Seoul")
         private LocalDateTime time;
     }
 }
