@@ -37,6 +37,7 @@ public class DummyObject {
                 .username(username)
                 .password("1234")
                 .address(address)
+                .name(name)
                 .build();
     }
 }

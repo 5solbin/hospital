@@ -24,7 +24,7 @@ public class Hospital {
     @Embedded
     private Address address;
     @OneToMany (mappedBy = "hospital", cascade = CascadeType.ALL)
-    private List<Doctor> doctors = new ArrayList<>();
+    private final List<Doctor> doctors = new ArrayList<>();
 
     @Builder
     public Hospital(Long id, String name, String username, String password, Address address) {

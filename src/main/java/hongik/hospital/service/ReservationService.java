@@ -4,13 +4,17 @@ import hongik.hospital.domain.doctor.Doctor;
 import hongik.hospital.domain.doctor.DoctorRepository;
 import hongik.hospital.domain.doctorReservation.DoctorReservation;
 import hongik.hospital.domain.doctorReservation.DoctorReservationRepository;
+import hongik.hospital.domain.hospital.Hospital;
+import hongik.hospital.domain.hospital.HospitalRepository;
 import hongik.hospital.domain.patient.Patient;
 import hongik.hospital.domain.patient.PatientRepository;
 import hongik.hospital.domain.patientReservation.PatientReservation;
 import hongik.hospital.domain.patientReservation.PatientReservationRepository;
 import hongik.hospital.domain.reservation.Reservation;
 import hongik.hospital.domain.reservation.ReservationRepository;
+import hongik.hospital.dto.reservation.ReserReqDto;
 import hongik.hospital.dto.reservation.ReserReqDto.ReservationReqDto;
+import hongik.hospital.dto.reservation.ReserResDto.HospitalData;
 import hongik.hospital.dto.reservation.ReserResDto.ReservationResDto;
 import hongik.hospital.handler.ex.CustomApiException;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +23,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import static hongik.hospital.dto.reservation.ReserResDto.*;
 
 @Transactional(readOnly = true)
 @Service
@@ -29,6 +38,7 @@ public class ReservationService {
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
     private final ReservationRepository reservationRepository;
+    private final HospitalRepository hospitalRepository;
     private final DoctorReservationRepository doctorReservationRepository;
     private final PatientReservationRepository patientReservationRepository;
 
@@ -79,6 +89,28 @@ public class ReservationService {
         // Dto 반환
         return new ReservationResDto(patient.getName(), doctor.getName(), time);
 
+    }
+
+    // 병원을 알려줬을 때 의사 목록 출력
+    public HospitalData getHospitalDoctor(ReserReqDto.DoctorDataReq doctorDataReq) {
+
+        // 병원 찾기
+        Hospital hospital = hospitalRepository.findById(doctorDataReq.getId()).orElseThrow(
+                () ->  new CustomApiException("존재하지 않는 병원입니다.")
+        );
+
+        // 의사 리스트 추출하기
+        List<Doctor> doctors = doctorRepository.findByHospital(hospital);
+
+        //
+        Map<String, DoctorData> doctorDataMap = new HashMap<>();
+
+        for (Doctor doctor : doctors) {
+            DoctorData doctorData = new DoctorData(doctor);
+            doctorDataMap.put(doctor.getName(), doctorData);
+        }
+
+        return new HospitalData(hospital.getName(),doctorDataMap);
     }
 
 }

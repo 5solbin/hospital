@@ -18,4 +18,9 @@ public class ReserReqDto {
                 timezone = "Asia/Seoul")
         private LocalDateTime time;
     }
+
+    @Getter @Setter
+    public static class DoctorDataReq {
+        private Long id;
+    }
 }

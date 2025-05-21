@@ -6,11 +6,11 @@ import hongik.hospital.domain.hospital.Hospital;
 import hongik.hospital.domain.hospital.HospitalRepository;
 import hongik.hospital.domain.patient.Patient;
 import hongik.hospital.domain.patient.PatientRepository;
-import hongik.hospital.dto.reservation.ReserReqDto;
 import hongik.hospital.dto.reservation.ReserReqDto.ReservationReqDto;
-import hongik.hospital.dto.reservation.ReserResDto;
+import hongik.hospital.dto.reservation.ReserResDto.HospitalData;
 import hongik.hospital.dto.reservation.ReserResDto.ReservationResDto;
 import hongik.hospital.dummy.DummyObject;
+import hongik.hospital.handler.ex.CustomApiException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +21,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import static hongik.hospital.dto.reservation.ReserReqDto.*;
 
 
 @SpringBootTest
@@ -36,16 +39,25 @@ class ReservationServiceTest extends DummyObject {
     @Autowired
     HospitalRepository hospitalRepository;
 
-    @BeforeEach
-    public void init() {
-        Patient kim = patientRepository.save(newPatient("kim", "김민진"));
-        Patient park = patientRepository.save(newPatient("park", "박상구"));
+    @Test
+    public void 병원별_의사목록() throws Exception{
+        //given
+        Hospital hospital = hospitalRepository.findByName("신과함께").orElseThrow(
+                () -> new CustomApiException("해당 이름의 병원이 존재하지 않습니다.")
+        );
+        DoctorDataReq doctorDataReq = new DoctorDataReq();
+        doctorDataReq.setId(hospital.getId());
 
-        Doctor choi = doctorRepository.save(newDoctor("choi", "최형운"));
-        Doctor oh = doctorRepository.save(newDoctor("oh", "오병택"));
 
-        Hospital god = hospitalRepository.save(newHospital("god", "신과함께", "서울시", "잠실"));
-        Hospital bad = hospitalRepository.save(newHospital("bad", "나쁜손", "서울시", "마포구"));
+        //when
+        HospitalData hospitalDoctor1 = reservationService.getHospitalDoctor(doctorDataReq);
+
+        System.out.println("병원 이름 : " + hospitalDoctor1.getName());
+        System.out.println("의사 이름 : " +  hospitalDoctor1.getDoctors());
+
+        //then
+        Assertions.assertThat(hospitalDoctor1.getName()).isEqualTo("신과함께");
+        Assertions.assertThat(hospitalDoctor1.getDoctors().size()).isEqualTo(2);
     }
 
     @Test
@@ -67,5 +79,6 @@ class ReservationServiceTest extends DummyObject {
         Assertions.assertThat(reservation.getPatientName()).isEqualTo("김민진");
 
     }
+
 
 }
