@@ -24,8 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 @ExtendWith(SpringExtension.class)
 @Transactional
 class PatientServiceTest {
-    @Autowired
-    PatientRepository patientRepository;
+
     @Autowired
     PatientService patientService;
 
