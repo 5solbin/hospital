@@ -1,5 +1,6 @@
 package hongik.hospital.domain.hospital;
 
+import hongik.hospital.domain.user.Role;
 import hongik.hospital.domain.user.User;
 import hongik.hospital.domain.doctor.Doctor;
 import jakarta.persistence.*;
@@ -25,7 +26,7 @@ public class Hospital extends User {
 
     @Builder
     public Hospital(Long id, String name, String username, String password, Address address) {
-        super(id, username, password);
+        super(id, username, password,Role.Hospital);
         this.name = name;
         this.address = address;
     }
@@ -34,5 +35,10 @@ public class Hospital extends User {
     public void addDoctor(Doctor doctor) {
         doctor.assignHospital(this);
         doctors.add(doctor);
+    }
+
+    @Override
+    public Role getRole() {
+        return Role.Hospital;
     }
 }

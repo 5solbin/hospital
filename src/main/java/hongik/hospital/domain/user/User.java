@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type")
@@ -16,11 +17,14 @@ public abstract class User {
     private Long id;
     private String username;
     private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 //    @Builder 는 객체를 사용하지 못하는 추상 클래스의 특성상 안된다.
-    public User(Long id, String password, String username) {
+    public User(Long id, String password, String username, Role role) {
         this.id = id;
         this.password = password;
         this.username = username;
+        this.role = role;
     }
 }

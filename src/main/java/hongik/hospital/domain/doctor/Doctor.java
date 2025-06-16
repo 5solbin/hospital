@@ -1,5 +1,6 @@
 package hongik.hospital.domain.doctor;
 
+import hongik.hospital.domain.user.Role;
 import hongik.hospital.domain.user.User;
 import hongik.hospital.domain.doctorReservation.DoctorReservation;
 import hongik.hospital.domain.hospital.Hospital;
@@ -30,7 +31,7 @@ public class Doctor extends User {
 
     @Builder
     public Doctor(Long id, String name, String username, String password, Long career, Department department) {
-        super(id, username, password);
+        super(id, username, password,Role.Doctor);
         this.name = name;
         this.career = career;
         this.department = department;
@@ -43,6 +44,11 @@ public class Doctor extends User {
     public void addDoctorReservation(DoctorReservation dr) {
         doctorReservations.add(dr);
         dr.assignDoctor(this);
+    }
+
+    @Override
+    public Role getRole() {
+        return Role.Doctor;
     }
 
 }

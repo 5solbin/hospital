@@ -8,6 +8,7 @@ import hongik.hospital.domain.patient.PatientRepository;
 import hongik.hospital.dto.join.JoinReqDto.JoinReq;
 import hongik.hospital.handler.ex.CustomApiException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,9 +26,11 @@ public class UserService {
     private final DoctorRepository doctorRepository;
     private final HospitalRepository hospitalRepository;
     private final UserRepository   userRepository;
+    private final BCryptPasswordEncoder encoder;
 
     @Transactional
     public JoinRes Join(JoinReq joinReq) {
+
 
         // 1. 동일 유저네임 검사
         Optional<User> user = userRepository.findByUsername(joinReq.getUsername());
@@ -37,13 +40,13 @@ public class UserService {
 
         // 2. 유저 타입 검사, 회원가입 진행
         if (joinReq instanceof PatientJoinReq) {
-            return new JoinRes(patientRepository.save(((PatientJoinReq) joinReq).toEntity()));
+            return new JoinRes(patientRepository.save(((PatientJoinReq) joinReq).toEntity(encoder)));
         }
         else if (joinReq instanceof DoctorJoinReq) {
-            return new JoinRes(doctorRepository.save(((DoctorJoinReq) joinReq).toEntity()));
+            return new JoinRes(doctorRepository.save(((DoctorJoinReq) joinReq).toEntity(encoder)));
         }
         else {
-            return new JoinRes(hospitalRepository.save(((HospitalJoinReq) joinReq).toEntity()));
+            return new JoinRes(hospitalRepository.save(((HospitalJoinReq) joinReq).toEntity(encoder)));
         }
     }
 

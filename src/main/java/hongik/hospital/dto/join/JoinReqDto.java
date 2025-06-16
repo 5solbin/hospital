@@ -8,6 +8,7 @@ import hongik.hospital.domain.patient.Gender;
 import hongik.hospital.domain.patient.Patient;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class JoinReqDto {
 
@@ -25,10 +26,10 @@ public class JoinReqDto {
         private Gender gender;
         private Long age;
 
-        public Patient toEntity() {
+        public Patient toEntity(BCryptPasswordEncoder encoder) {
             return Patient.builder()
                     .username(username)
-                    .password(password)
+                    .password(encoder.encode(password))
                     .name(name)
                     .gender(gender)
                     .age(age)
@@ -45,10 +46,10 @@ public class JoinReqDto {
         private String name;
         private Address address;
 
-        public Hospital toEntity() {
+        public Hospital toEntity(BCryptPasswordEncoder encoder) {
             return Hospital.builder()
                     .username(username)
-                    .password(password)
+                    .password(encoder.encode(password))
                     .name(name)
                     .address(address)
                     .build();
@@ -63,10 +64,10 @@ public class JoinReqDto {
         private Long career;
         private Department department;
 
-        public Doctor toEntity() {
+        public Doctor toEntity(BCryptPasswordEncoder encoder) {
             return Doctor.builder()
                     .username(username)
-                    .password(password)
+                    .password(encoder.encode(password))
                     .name(name)
                     .career(career)
                     .department(department)
