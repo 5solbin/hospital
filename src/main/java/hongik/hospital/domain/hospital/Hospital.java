@@ -1,5 +1,6 @@
 package hongik.hospital.domain.hospital;
 
+import hongik.hospital.domain.user.User;
 import hongik.hospital.domain.doctor.Doctor;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -12,14 +13,10 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Getter
-public class Hospital {
+@DiscriminatorValue("hospital")
+public class Hospital extends User {
 
-    @Id @GeneratedValue
-    @Column(name = "hospital_id")
-    private Long id;
     private String name;
-    private String username;
-    private String password;
 
     @Embedded
     private Address address;
@@ -28,10 +25,8 @@ public class Hospital {
 
     @Builder
     public Hospital(Long id, String name, String username, String password, Address address) {
-        this.id = id;
+        super(id, username, password);
         this.name = name;
-        this.username = username;
-        this.password = password;
         this.address = address;
     }
 

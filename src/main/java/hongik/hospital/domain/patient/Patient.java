@@ -1,5 +1,6 @@
 package hongik.hospital.domain.patient;
 
+import hongik.hospital.domain.user.User;
 import hongik.hospital.domain.patientReservation.PatientReservation;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -12,13 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Getter
-public class Patient {
+@DiscriminatorValue("patient")
+public class Patient extends User {
 
-    @Id @GeneratedValue
-    @Column(name = "patient_id")
-    private Long id;
-    private String username;
-    private String password;
     private String name;
     private Long age;
     private Gender gender;
@@ -27,9 +24,7 @@ public class Patient {
 
     @Builder
     public Patient(Long id, String username, String password, String name, Long age, Gender gender) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
+        super(id,username,password);
         this.name = name;
         this.age = age;
         this.gender = gender;

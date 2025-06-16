@@ -10,25 +10,6 @@ import lombok.Setter;
 public class DoctorReqDto {
 
     @Getter @Setter
-    public static class JoinReqDto {
-        private String username;
-        private String password;
-        private String name;
-        private Long career;
-        private Department department;
-
-        public Doctor toEntity() {
-            return Doctor.builder()
-                    .username(username)
-                    .password(password)
-                    .name(name)
-                    .career(career)
-                    .department(department)
-                    .build();
-        }
-    }
-
-    @Getter @Setter
     public static class LoginReqDto {
         private String username;
         private String password;

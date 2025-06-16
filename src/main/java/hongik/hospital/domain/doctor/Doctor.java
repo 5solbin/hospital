@@ -1,5 +1,6 @@
 package hongik.hospital.domain.doctor;
 
+import hongik.hospital.domain.user.User;
 import hongik.hospital.domain.doctorReservation.DoctorReservation;
 import hongik.hospital.domain.hospital.Hospital;
 import jakarta.persistence.*;
@@ -10,18 +11,13 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-// 별별 : 의사 병원 관계 추가
 @Entity
 @Getter
 @NoArgsConstructor
-public class Doctor {
+@DiscriminatorValue("doctor")
+public class Doctor extends User {
 
-    @Id @GeneratedValue
-    @Column(name = "doctor_id")
-    private Long id;
     private String name;
-    private String username;
-    private String password;
     private Long career;
     private Department department;
 
@@ -34,10 +30,8 @@ public class Doctor {
 
     @Builder
     public Doctor(Long id, String name, String username, String password, Long career, Department department) {
-        this.id = id;
+        super(id, username, password);
         this.name = name;
-        this.username = username;
-        this.password = password;
         this.career = career;
         this.department = department;
     }

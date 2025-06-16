@@ -1,7 +1,6 @@
 package hongik.hospital.controller;
 
 import hongik.hospital.dto.ResponseDto;
-import hongik.hospital.dto.reservation.ReserReqDto;
 import hongik.hospital.dto.reservation.ReserReqDto.DoctorDataReq;
 import hongik.hospital.dto.reservation.ReserReqDto.ReservationReqDto;
 import hongik.hospital.dto.reservation.ReserResDto;

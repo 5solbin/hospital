@@ -6,16 +6,7 @@ import lombok.Setter;
 
 public class DoctorResDto {
 
-    @Getter @Setter
-    public static class JoinResDto {
-        private String username;
-        private String name;
 
-        public JoinResDto(Doctor doctor) {
-            this.username = doctor.getUsername();
-            this.name = doctor.getName();
-        }
-    }
 
     @Getter @Setter
     public static class LoginResDto {
