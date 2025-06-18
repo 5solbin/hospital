@@ -28,6 +28,7 @@ public class DoctorReservation {
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
+    // json format 을 맞춰서 직렬화와 역직렬화 과정에서 오류가 없도록 했다.
     @JsonFormat(shape = JsonFormat.Shape.STRING,
             pattern = "yyyyMMddHHmmss",
             timezone = "Asia/Seoul")

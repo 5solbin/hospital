@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 회원 가입과 로그인의 일괄적 처리를 위한 의사, 병원, 환자의 상위 엔티티
+ */
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

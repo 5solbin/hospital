@@ -1,15 +1,11 @@
 package hongik.hospital.service;
 
-import hongik.hospital.domain.doctor.DoctorRepository;
-import hongik.hospital.domain.hospital.HospitalRepository;
 import hongik.hospital.domain.patient.Gender;
 import hongik.hospital.domain.patient.Patient;
 import hongik.hospital.domain.patient.PatientRepository;
 import hongik.hospital.domain.user.UserRepository;
-import hongik.hospital.dto.join.JoinReqDto;
 import hongik.hospital.dto.join.JoinReqDto.PatientJoinReq;
 import hongik.hospital.dto.join.JoinResDto;
-import hongik.hospital.dummy.DummyInit;
 import hongik.hospital.dummy.DummyObject;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,10 +29,6 @@ class UserServiceTest extends DummyObject {
     private UserRepository userRepository;
     @Mock
     private PatientRepository patientRepository;
-    @Mock
-    private DoctorRepository doctorRepository;
-    @Mock
-    private HospitalRepository hospitalRepository;
 
     @Test
     public void 환자_회원가입() throws Exception{

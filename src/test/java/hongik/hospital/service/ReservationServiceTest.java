@@ -34,8 +34,6 @@ import static org.mockito.Mockito.when;
 class ReservationServiceTest extends DummyObject {
     @InjectMocks
     ReservationService reservationService;
-    @InjectMocks
-    HospitalService hospitalService;
     @Mock
     HospitalRepository hospitalRepository;
     @Mock

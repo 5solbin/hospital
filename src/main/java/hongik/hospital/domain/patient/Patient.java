@@ -11,6 +11,10 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * User 엔티티의 하위 클래스인 Patient 엔티티
+ * 이름, 나이 ,성별 의 속성을 가진다.
+ */
 @NoArgsConstructor
 @Entity
 @Getter
